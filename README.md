@@ -1,3 +1,20 @@
+---
+license: MIT
+tasks:
+  - any
+language:
+  - zh
+  - en
+tags:
+  - mcp
+  - model-context-protocol
+  - langchain
+  - agent
+  - tool-calling
+domain:
+  - nlp
+---
+
 # date-tool-mcp
 
 一个基于 [MCP (Model Context Protocol)](https://modelcontextprotocol.io) 与 [LangChain](https://python.langchain.com) 的最小示例：用 MCP Server 暴露一个「获取今天日期」的工具，再让大模型通过自然语言调用它。
