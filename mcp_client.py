@@ -1,4 +1,5 @@
 import asyncio
+import sys
 
 from langchain.agents import create_agent
 from langchain.chat_models import init_chat_model
@@ -7,13 +8,13 @@ from langchain_mcp_adapters.client import MultiServerMCPClient
 # 1. 用你的 MCP 配置创建客户端
 client = MultiServerMCPClient(
     {
-        # "date-tool-stdio": {
-        #     "transport": "stdio",
-        #     "command": "python",
-        #     "args": ["d:/Users/11834/PycharmProjects/test/mcp_server_stdio.py"],
-        # },
+        "date-tool-stdio": {
+            "transport": "stdio",
+            "command": sys.executable,
+            "args": ["-m", "date_tool_mcp"],
+        },
         # "date-tool-sse": {"transport": "sse", "url": "http://127.0.0.1:8000/sse"},
-        "date-tool-streamable": {"transport": "streamable_http", "url": "http://127.0.0.1:8000/mcp"},
+        # "date-tool-streamable": {"transport": "streamable_http", "url": "http://127.0.0.1:8000/mcp"},
     }
 )
 
