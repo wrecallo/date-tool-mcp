@@ -1,0 +1,52 @@
+name: Publish to PyPI
+
+# 打 v* 标签即自动发布到 PyPI；也可在 Actions 页面手动触发。
+# 使用 PyPI Trusted Publishing（OIDC），无需在仓库里保存 API Token。
+# 首次发布前需在 PyPI 项目设置里添加 Trusted Publisher：
+#   Owner: wrecallo  Repository: date-tool-mcp  Workflow: publish.yml  Environment: pypi
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: 构建并校验产物
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安装 uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: 构建 sdist 与 wheel
+        run: uv build
+
+      - name: 校验包元数据
+        run: uvx twine check dist/*
+
+      - name: 上传构建产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    name: 发布到 PyPI
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/date-tool-mcp
+    permissions:
+      id-token: write
+    steps:
+      - name: 下载构建产物
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: 发布
+        uses: pypa/gh-action-pypi-publish@release/v1

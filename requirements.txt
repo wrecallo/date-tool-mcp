@@ -1,3 +1,7 @@
-# 本地开发：安装 MCP 服务及可选的 LangChain 客户端依赖。
-# 魔搭托管通过 PyPI / uvx 安装，仅需 pyproject.toml 中的服务依赖。
--e .[client]
+# 本地可选：LangChain 大模型客户端示例依赖。
+# 这些包要求 Python >= 3.11；MCP 服务本身只要 Python >= 3.10，且运行时不需要它们。
+# 魔搭托管通过 PyPI + uvx 安装，仅使用 pyproject.toml 中的服务依赖。
+langchain>=1.5.2
+langchain-mcp-adapters>=0.3.2
+langchain-openai>=1.8.5
+-e .
