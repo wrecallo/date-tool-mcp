@@ -1,7 +1,0 @@
-{
-  "framework": "python",
-  "task": "any",
-  "pipeline": {
-    "type": "any"
-  }
-}
